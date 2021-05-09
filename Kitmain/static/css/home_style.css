@@ -1,0 +1,14 @@
+body{
+    background-color: #afaeae;
+}
+
+#NAVBRAND a{
+    color:rgb(41, 182, 105);
+    font-weight:bold;
+    letter-spacing:2px;
+
+}
+#NAVBRAND a:hover{
+    background-color: #fffc64;
+    color: black;
+}

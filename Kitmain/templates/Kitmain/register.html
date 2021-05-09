@@ -1,0 +1,303 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>kithob</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/home_style.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+  .dropdown-submenu {
+  position: relative;
+}
+body {
+  padding: 50px 0px 0px 0px;
+  z-index: 0; }
+.dropdown-submenu a::after {
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 6px;
+  top: .8em;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-left: .1rem;
+  margin-right: .1rem;
+}
+.card{
+  height:530px;
+  width:400px;
+  overflow: hidden;
+  box-shadow: 0 4px 1px 0 blue;
+  background-color:#f1f1f1;
+
+}
+.card-img-top{
+  height:220px;
+  width:400px;
+  overflow:hidden;
+}
+.row-content {
+  margin: 0px auto;
+  padding: 10px 0px;
+  border-bottom: 1px ridge;
+  min-height: 500px;
+  }
+
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm fixed-top" style="background:black;box-shadow:1px 1px 1px 1px white;">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand " id="NAVBRAND" href="{% url 'home' %}" style="color:white;font-weight:bold;letter-spacing:2px;">KITHOB
+    </a>
+
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="nav-item active"><a class="nav-link font-weight-bold text-white"  href="{% url 'home' %}">Home</a></li>
+        <!-- <li class="nav-item"><a class="nav-link text-white" href="{% url 'listings' %}">Products</a></li> -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle font-weight-bold" style="color:white;" href="#" id="navbardrop" data-toggle="dropdown">
+          Products
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">TextBooks</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">CSE</a></li>
+                <li><a class="dropdown-item" href="#">ECE</a></li>
+                <li><a class="dropdown-item" href="#">MECH</a></li>
+                <li><a class="dropdown-item" href="#">CIVIL</a></li>
+                <li><a class="dropdown-item" href="#">CHE</a></li>
+                <li><a class="dropdown-item" href="#">MME</a></li>                
+              </ul>
+            </li>
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">NoteBooks</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'cse_nb' %}">CSE</a></li>
+                <li><a class="dropdown-item" href="#">ECE</a></li>
+                <li><a class="dropdown-item" href="#">MECH</a></li>
+                <li><a class="dropdown-item" href="#">CIVIL</a></li>
+                <li><a class="dropdown-item" href="#">CHE</a></li>
+                <li><a class="dropdown-item" href="#">MME</a></li>                
+              </ul>
+            </li>
+            <li><a class="dropdown-item" href="#">Others</a></li>
+          </ul>
+        <li class="nav-item "><a class="nav-link font-weight-bold text-white"  href="{% url 'listings' %}">All Books</a></li>
+        </li>
+        
+      </ul>
+      <ul class="nav navbar-nav ml-auto">
+          {% if user.is_authenticated %}
+      
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle font-weight-bold" style="color:white;" href=""id="navbardrop" data-toggle="dropdown">
+              {{request.user}}
+            </a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="{% url 'dashboard' %}">Profile</a>
+              <a class="dropdown-item" href="{% url 'signout' %}">Logout</a>
+            </div>
+          </li>
+          {% else %}
+          <li><a href="{% url 'signin' %}"><span class="glyphicon glyphicon-login"></span> Login</a></li>
+          {% endif %}
+        </ul>
+    </div>
+  </div>
+</nav>
+    <hr>
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-sm-3"><!--left col-->
+                
+
+                <div class="text-center">
+                    <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                    <h6>Upload a different photo...</h6>
+                    <input type="file" class="text-center center-block file-upload">
+                </div></hr><br>
+                <ul class="list-group">
+                    <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>deals</strong></span> 125</li>
+                    <li class="list-group-item text-right"><span class="pull-left"><strong>ordered books</strong></span> 13</li>
+                
+                
+            
+            
+            </div><!--/col-3-->
+            <div class="col-sm-9">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#user-profile">Your details</a></li>
+                    <li><a data-toggle="tab" href="#delivery">Delivery progress</a></li>
+                    <li><a data-toggle="tab" href="#edit-address">adress book</a></li>
+                </ul>
+
+                
+            <div class="tab-content">
+                <div class="tab-pane active" id="user-profile">
+                    <hr>
+                    <form class="form" action="##" method="POST" id="registrationForm">
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="first_name"><h4>First name</h4></label>
+                                <input type="text" class="form-control" name="first_name" id="first_name" placeholder="first name" title="enter your first name if any.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="last_name"><h4>Last name</h4></label>
+                                <input type="text" class="form-control" name="last_name" id="last_name" placeholder="last name" title="enter your last name if any.">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="id_number"><h4>Last name</h4></label>
+                                <input type="text" class="form-control" name="id_number" id="id_number" placeholder="ID number" title="enter your last name if any.">
+                            </div>
+                        </div>
+            
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="phone"><h4>Phone</h4></label>
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="enter phone" title="enter your phone number if any.">
+                            </div>
+                        </div>
+            
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="email"><h4>Email</h4></label>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="idnumber@rguktong.ac.in" title="enter your email.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="location"><h4>Location</h4></label>
+                                <input type="text" class="form-control" id="location" placeholder="somewhere" title="enter a location">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="password"><h4>Password</h4></label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="conform_password"><h4>Verify</h4></label>
+                                <input type="password" class="form-control" name="conform_password" id="conform_password" placeholder="conform your password" title="enter your password2.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                    <br>
+                                    <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                    <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                                </div>
+                        </div>
+                    </form>
+                
+                <hr>
+                
+                </div><!--/tab-pane-->
+                <div class="tab-pane" id="delivery">
+                    Under construction                
+                </div><!--/tab-pane-->
+                <div class="tab-pane" id="edit-address">
+                        
+                    
+                    <hr>
+                    <form class="form" action="##" method="post" id="registrationForm">
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="id_number"><h4>ID number</h4></label>
+                                <input type="text" class="form-control" name="id_number" id="id_number" placeholder="id_number" title="enter your id number if any.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="hostel_name"><h4>Hostel name</h4></label>
+                                <input type="text" class="form-control" name="hostel_name" id="hostel_name" placeholder="hostel name" title="enter your hostel if any.">
+                            </div>
+                        </div>
+            
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="room_number"><h4>Room number</h4></label>
+                                <input type="text" class="form-control" name="room_number" id="room_number" placeholder="enter room number" title="enter your room number if any.">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="email"><h4>E-mail</h4></label>
+                                <input type="email" class="form-control" id="email" placeholder="idnumber@rguktong.ac.in" title="enter a id number if any.">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            
+                            <div class="col-xs-6">
+                                <label for="phone"><h4>Phone number</h4></label>
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="XXXXXXXXXX" title="enter your phone number if any.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                    <br>
+                                    
+                                    <button class="btn btn-lg" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                                </div>
+                        </div>
+                    </form>                
+                </div><!--/tab-pane-->
+            </div><!--/tab-content-->
+
+            </div><!--/col-9-->
+        </div><!--/row-->
+    </div>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+      if (!$(this).next().hasClass('show')) {
+      $(this).parents('.dropdown-menu').first().find('.show').removeClass('show');
+      }
+      var $subMenu = $(this).next('.dropdown-menu');
+      $subMenu.toggleClass('show');
+      $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+      $('.dropdown-submenu .show').removeClass('show');});
+      return false;
+      });
+    </script>
+</body>
+</html>
+                                                      
