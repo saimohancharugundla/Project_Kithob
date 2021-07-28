@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Listing
 from django.core.paginator import Paginator,EmptyPage
+from django.db.models import Q
 # Create your views here.
 
 def listings(request):
@@ -25,7 +26,7 @@ def search(request):
     if 'keywords' in request.GET:
         keywords = request.GET['keywords']
         if keywords:
-            query_set = query_set.filter(description__icontains=keywords)
+            query_set = query_set.filter(Q(title__icontains=keywords)|Q(description__icontains=keywords)|Q(category__icontains=keywords))
     context = {
         'query_set':query_set
     }

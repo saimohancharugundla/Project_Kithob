@@ -10,7 +10,7 @@ class Inquiry(models.Model):
     message = models.TextField(blank = True)
     contact_date = models.DateField(default = datetime.now)
     user_id = models.IntegerField(blank = True)
-
+    owner_id = models.IntegerField(default=0,blank= True)
     def __str__(self):
         return self.listing
      

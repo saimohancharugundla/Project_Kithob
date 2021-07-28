@@ -86,52 +86,108 @@
   </section>
 
   
-<div class="conatainer">
+<div class="container">
   {% include 'partials/alerts.html' %}
   <!-- Listing -->
   <section id="listing" class="py-4">
     <div class="container">
-      <a href="{% url 'listings'%}" class="btn btn-primary mb-4"> <- Back</a>
+      <a href="{% url 'listings'%}" class="btn btn-primary mb-4"><span class="previous"></span>Back</a>
       <div class="row">
         <div class="col-md-9">
           <!-- Home Main Image -->
-          <img src="{{ listing.photo_main.url }}" height="400px" width="400px" alt="" class="img-main img-fluid mb-3">
+          <img src="{{ listing.photo_main.url }}" height="450px" width="500px" alt="" class="img-main img-fluid mb-3">
           <!-- Thumbnails -->
+        </div>
+        {% if user.is_authenticated %}
+        <div class="col-md-3">
+          <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Ask the Product</button>
+        </div>
+        {% endif %}
+      </div>
           <br><br><br>
-          <div class="row mb-5 thumbs">
-            {% if listing.photo_1%}
-            <div class="col-md-2">
-              <a href="{{ listing.photo_1.url}}" data-lightbox="home-images">
-                <img src="{{ listing.photo_1.url}}" height="250px" widht="100px" alt="" class="img-fluid">
-              </a>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-6">
+            <div class="carousel slide" id="mycarousel" data-ride="carousel">
+              <div class="carousel-inner " role="listbox">
+                {% if listing.photo_1%}
+                <div class="carousel-item active col-md-4" style="height:300px">
+                  <a href="{{ listing.photo_1.url}}" data-lightbox="home-images">
+                    <img src="{{ listing.photo_1.url}}" class="pl-5" height="400x" width="430px" alt="No image" class="align-items-center pl-3" >
+                  </a>
+                </div>
+                {% endif %}
+                {% if listing.photo_2%}
+                
+                <div class="carousel-item col-md-4" style="height:300px">
+                  <a href="{{ listing.photo_2.url}}" data-lightbox="home-images">
+                    <img src="{{ listing.photo_2.url}}" class="pl-5" height="400x" width="430px" alt="No image" class="align-items-center pl-3">
+                  </a>
+                </div>
+                {% endif %}
+                {% if listing.photo_3%}
+                <div class="carousel-item col-md-4" style="height:300px">
+                  <a href="{{ listing.photo_3.url}}" data-lightbox="home-images">
+                    <img src="{{ listing.photo_3.url}}" class="pl-5" height="400x" width="430px" alt="No image" class="align-items-center pl-3" >
+                  </a>
+                </div>
+                {% endif %}
+                {% if listing.photo_4%}
+                <div class="carousel-item col-md-4" style="height:300px">
+                  <a href="{{ listing.photo_4.url}}" data-lightbox="home-images">
+                    <img src="{{ listing.photo_4.url}}" class="pl-5" height="400x" width="430px" alt="No image" class="align-items-center pl-3">
+                  </a>
+                </div>
+                {% endif %}
+                <ol class="carousel-indicators">
+                  <li data-target="#mycarousel" data-slide-to="0" class="active"></li>
+                  <li data-target="#mycarousel" data-slide-to="1" ></li>
+                  <li data-target="#mycarousel" data-slide-to="2" ></li>
+                  <li data-target="#mycarousel" data-slide-to="3" ></li>
+                </ol>
+                <a class="carousel-control-prev" href="#mycarousel" role="button" data-slide="prev"><span class="carousel-control-prev-icon"></span></a>
+                <a class="carousel-control-next" href="#mycarousel" role="button" data-slide="next"><span class="carousel-control-next-icon"></span></a>
+                
+              </div>
             </div>
-            {% endif %}
-            {% if listing.photo_2%}
-            <div class="col-md-2">
-              <a href="{{ listing.photo_2.url}}" data-lightbox="home-images">
-                <img src="{{ listing.photo_2.url}}" height="250px" widht="100px" alt="" class="img-fluid">
-              </a>
-            </div>
-            {% endif %}
-            {% if listing.photo_3%}
-            <div class="col-md-2">
-              <a href="{{ listing.photo_3.url}}" data-lightbox="home-images">
-                <img src="{{ listing.photo_3.url}}" height="250px" widht="100px" alt="" class="img-fluid">
-              </a>
-            </div>
-            {% endif %}
-            {% if listing.photo_4%}
-            <div class="col-md-2">
-              <a href="{{ listing.photo_4.url}}" data-lightbox="home-images">
-                <img src="{{ listing.photo_4.url}}" height="250px" widht="100px" alt="" class="img-fluid">
-              </a>
-            </div>
-            {% endif %}
-            
           </div>
+          <div class="col-md-6 col-12 col-sm-6">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-money-bill-alt"></i><b>Listed Price:</b>
+                <span class="float-right"> {{ listing.price | intcomma }}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-list-alt"></i><b>Category:</b>
+                <span class="float-right">{{ listing.category}}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-list-alt"></i> <b>Description:</b>
+                <span class="float-right">{{ listing.description}}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-calendar"></i> <b>Listing Date:</b>
+                <span class="float-right">{{listing.list_date | timesince}}</span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-user"></i> <b>Owner:</b>
+                <span class="float-right">{{ listing.owner.first_name }}
+                </span>
+              </li>
+              <li class="list-group-item text-secondary">
+                <i class="fas fa-phone"></i> <b>Email Id:</b>
+                <span class="float-right">{{ listing.owner.email }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+        <!--
           <br><br><br>
-          <!-- Fields -->
-          <div class="row mb-5 fields">
+          <!-- Fields
+          <div class="row mb-5 " >
             <div class="col-md-6">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item text-secondary">
@@ -170,30 +226,31 @@
               </ul>
             </div>
           </div>
-
+          -->
           <!-- Description -->
         
-        </div>
+        
 
-        {% if user.is_authenticated %}
+        <!--{% if user.is_authenticated %}
         <div class="col-md-3">
           <button class="btn-primary btn-block btn-lg" data-toggle="modal" data-target="#inquiryModal">Ask the Product</button>
         </div>
         {% endif %}
       </div>
     </div>
-  </section>
+  </section>-->
 
   <!-- Inquiry Modal -->
   <div class="modal fade" id="inquiryModal" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="modal-title align-items-center" id="inquiryModalLabel">Ask the Product</h2>
+          <h2 class="modal-title align-items-center" id="inquiryModalLabel"><strong>Ask the Product</strong></h2>
           <button type="button" class="close" data-dismiss="modal">
             <span>&times;</span>
           </button>
         </div>
+        {% if listing.owner.id != request.user.id %}
         <div class="modal-body">
           <form action="{% url 'inquiry' %}" method="POST">
             {% csrf_token %}
@@ -229,7 +286,9 @@
             <input type="submit" value="Send" class="btn btn-block btn-secondary">
           </form>
         </div>
-       
+        {% else %}
+        <h4> You cannot make an inquiry for your product</h4>
+        {% endif %}
       </div>
     </div>
   </div>

@@ -127,7 +127,9 @@ def dashboard(request):
     mylistings = Listing.objects.order_by('-list_date').filter(owner=request.user)
     myinquiry = Inquiry.objects.all().filter(user_id=request.user.id)
     myinquiries_count = Inquiry.objects.all().filter(user_id=request.user.id).count()
-    mylistings_count = Listing.objects.order_by('-list_date').filter(owner=request.user).count()
+    mylistings_count = Listing.objects.all().filter(owner=request.user).count()
+    inquiries_received = Inquiry.objects.all().filter(owner_id = request.user.id)
+    inquiries_received_count = Inquiry.objects.all().filter(owner_id = request.user.id).count()
     print("My Inquiries\n")
     print(myinquiry)
     print(mylistings)
@@ -136,7 +138,9 @@ def dashboard(request):
         'listingss' : mylistings,
         'inquiries': myinquiry,
         'myinq_count' : myinquiries_count,
-        'mylist_count' : myinquiries_count,
+        'mylist_count' : mylistings_count,
+        'inq_received' : inquiries_received,
+        'inq_received_count' : inquiries_received_count,
         #'receiverd_inquiries':receiverd_inquiries
     }
     return render(request,'accounts/profile.html',context)
